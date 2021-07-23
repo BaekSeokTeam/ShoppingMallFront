@@ -24,9 +24,9 @@ export const token = () => {
         console.log(body)
      axios.post('api/users/signin',body)
         .then((res) => {
-          var cookies = new Cookies();
-          cookies.set('auth', res.data.token);
-          resolve(res.data.token);
+
+          resolve(res.data);
+  
         })
         .catch((err) => {
     

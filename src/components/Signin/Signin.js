@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {Router, withRouter} from 'react-router-dom';
 import {signin} from '../../controller/user'
+import Cookies from 'universal-cookie';
 function Signin(props) {
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
@@ -14,8 +15,17 @@ function Signin(props) {
     const onSubmitEvent=(event)=>
     {
         event.preventDefault();
-        signin(Email,Password).then(()=>{
-            props.history.push('/');
+        signin(Email,Password).then((res)=>{
+            console.log(res )
+            if(res.success){
+                var cookies=new Cookies()
+                cookies.set('auth',res.token)
+                props.history.push('/');
+            }
+            else{
+                alert(res.message)
+            }
+            
         }).catch((err)=>{
             alert(err)
         })
