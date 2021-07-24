@@ -68,7 +68,7 @@ function Signup(props) {
                <label>PasswordCheck</label>
                <input type="password" value={PasswordCheck} onChange={onPasswordCheckHandler}></input>
                <br/>
-               <Button>
+               <Button type='submit'>
                    회원가입
                </Button>
            </form>

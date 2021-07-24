@@ -44,7 +44,7 @@ function Signin(props) {
                <label>Password</label>
                <input type="password" value={Password} onChange={onPasswordHandler}></input>
                <br/>
-               <Button>
+               <Button type='submit'>
                    로그인
                </Button>
            </form>
