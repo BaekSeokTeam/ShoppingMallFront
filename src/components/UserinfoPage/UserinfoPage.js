@@ -7,10 +7,16 @@ export default function UserinfoPage(props) {
     const [Nickname, setNickname] = useState("");
     useEffect(()=>{
         getUserInfo().then((body)=>{
-            setEmail(body.email);
-            setPhonenumber(body.phonenumber);
-            setNickname(body.nickname);
-        })
+            if (body){
+                setEmail(body.email);
+                setPhonenumber(body.phonenumber);
+                setNickname(body.nickname);
+        
+            }
+            else{
+                props.history.push('/')
+            }
+    })
 },[])
        
 

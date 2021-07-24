@@ -17,11 +17,12 @@ function Signin(props) {
     {
         event.preventDefault();
         signin(Email,Password).then((res)=>{
-            console.log(res )
+
             if(res.success){
                 var cookies=new Cookies()
                 cookies.set('auth',res.token)
                 props.history.push('/');
+                
             }
             else{
                 alert(res.message)

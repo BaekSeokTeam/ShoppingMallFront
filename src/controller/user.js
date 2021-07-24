@@ -9,7 +9,6 @@ export const token = () => {
 
   export const removeToken = () => {
     var cookies = new Cookies();
-    
     return cookies.remove('auth');
   };
 
