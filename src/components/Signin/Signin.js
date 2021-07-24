@@ -20,6 +20,7 @@ function Signin(props) {
 
             if(res.success){
                 var cookies=new Cookies()
+                console.log(res.token)
                 cookies.set('auth',res.token)
                 props.history.push('/');
                 

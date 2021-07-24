@@ -38,7 +38,7 @@ export const token = () => {
       
    
   return new Promise((resolve, reject) => {
-      
+      console.log(`Bearer ${token()}`)
     axios({
         method: 'get',
         url: '/api/userinfo',
@@ -47,8 +47,8 @@ export const token = () => {
         },
       })
       .then((res) => {
-       
-        
+      
+
         resolve(res.data.body);
       })
       .catch((err) => {

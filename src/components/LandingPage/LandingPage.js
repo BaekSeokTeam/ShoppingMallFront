@@ -14,6 +14,7 @@ export default function Landingpage() {
             <h2>
             This is landingpage
             </h2>
+
     
         </div>
     )

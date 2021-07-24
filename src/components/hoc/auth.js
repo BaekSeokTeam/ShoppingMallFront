@@ -13,6 +13,7 @@ export default function Auth(SpecificComponent,option=null,adminRoute=null) {
             axios.get('api/users/auth',header)
             .then(res=>res.data.user)
             .then(async(res)=>{
+                
                 if (!res){
                     if (option){
                         await props.history.push('/signin')
