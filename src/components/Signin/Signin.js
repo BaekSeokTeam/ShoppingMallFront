@@ -1,7 +1,8 @@
 import React,{useState} from 'react'
-import {Router, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {signin} from '../../controller/user'
 import Cookies from 'universal-cookie';
+import {Button} from "react-bootstrap";
 function Signin(props) {
     const [Email, setEmail] = useState("")
     const [Password, setPassword] = useState("")
@@ -43,9 +44,9 @@ function Signin(props) {
                <label>Password</label>
                <input type="password" value={Password} onChange={onPasswordHandler}></input>
                <br/>
-               <button>
+               <Button>
                    로그인
-               </button>
+               </Button>
            </form>
         </div>
     )

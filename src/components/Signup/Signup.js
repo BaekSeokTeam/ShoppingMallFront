@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {signup} from '../../controller/user'
-import {Router, withRouter} from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
+import {Button} from "react-bootstrap";
 function Signup(props) {
 
 
@@ -67,9 +68,9 @@ function Signup(props) {
                <label>PasswordCheck</label>
                <input type="password" value={PasswordCheck} onChange={onPasswordCheckHandler}></input>
                <br/>
-               <button>
+               <Button>
                    회원가입
-               </button>
+               </Button>
            </form>
         </div>
     )
