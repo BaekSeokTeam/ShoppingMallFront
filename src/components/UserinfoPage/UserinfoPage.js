@@ -7,7 +7,6 @@ export default function UserinfoPage(props) {
     const [Nickname, setNickname] = useState("");
     useEffect(()=>{
         getUserInfo().then((body)=>{
-            console.log(body)
             setEmail(body.email);
             setPhonenumber(body.phonenumber);
             setNickname(body.nickname);

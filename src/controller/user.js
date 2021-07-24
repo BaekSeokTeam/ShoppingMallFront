@@ -9,6 +9,7 @@ export const token = () => {
 
   export const removeToken = () => {
     var cookies = new Cookies();
+    
     return cookies.remove('auth');
   };
 
@@ -65,7 +66,6 @@ export const signup = (body) => {
     return new Promise((resolve, reject) => {
         
         axios.post('api/users/signup',body).then((res)=>{
-            console.log(res.data)
             resolve(res.data)
         }).catch((err)=>{
             reject(err);

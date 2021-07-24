@@ -9,7 +9,7 @@ import Landingpage from './LandingPage/LandingPage'
 import Signin from './Signin/Signin'
 import Signup from './Signup/Signup'
 import Userinfo from './UserinfoPage/UserinfoPage'
-import { removeToken, signin } from "../controller/user";
+import { removeToken } from "../controller/user";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Nav,NavDropdown,Navbar,Container} from "react-bootstrap";
 import Auth from './hoc/auth';
@@ -39,7 +39,7 @@ export default function App() {
   </Container>
 </Navbar>
         <Switch>
-          <Route exact path="/" component={Auth(Landingpage)}/>
+          <Route exact path="/" component={Landingpage}/>
 
           <Route path="/signin" component={Signin} />
 
