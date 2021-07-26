@@ -15,28 +15,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-
 export default function App() {
 
 
-  
-        
    
 
   return (
     <Router>
       <div>
-    <NavComponent />
+    <NavComponent/>
+    
+    
         <Switch>
           <Route exact path="/" component={Landingpage}/>
 
-          <Route path="/signin" component={Signin} />
+          <Route path="/signin" component={Signin}  />
 
           <Route path="/signup" component={Signup} />
 
           <Route path="/userinfo" component={Userinfo} />
 
         </Switch>
+        
       </div>
     </Router>
   );

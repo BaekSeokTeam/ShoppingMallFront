@@ -20,7 +20,7 @@ function Signin(props) {
 
             if(res.success){
                 var cookies=new Cookies()
-                console.log(res.token)
+
                 cookies.set('auth',res.token)
                 props.history.push('/');
                 
@@ -29,11 +29,12 @@ function Signin(props) {
                 alert(res.message)
             }
             
-        }).catch((err)=>{
+        }).catch((err)=>{   
             alert(err)
         })
         
     }
+    console.log(props.onChange)
     return (
         <div style={{
             display:'flex',justifyContent:'center',alignItems:'center',
