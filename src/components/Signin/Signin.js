@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {withRouter} from 'react-router-dom';
+import {withRouter,Redirect} from 'react-router-dom';
 import {signin} from '../../controller/user'
 import Cookies from 'universal-cookie';
 import {Button} from "react-bootstrap";
@@ -22,6 +22,7 @@ function Signin(props) {
                 var cookies=new Cookies()
 
                 cookies.set('auth',res.token)
+                
                 props.history.push('/');
                 
             }
@@ -34,7 +35,7 @@ function Signin(props) {
         })
         
     }
-    console.log(props.onChange)
+
     return (
         <div style={{
             display:'flex',justifyContent:'center',alignItems:'center',
