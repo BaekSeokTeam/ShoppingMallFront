@@ -1,46 +1,90 @@
 import React,{useState,useEffect} from 'react'
 import { getUserInfo } from '../../controller/user';
 import {Form,Button} from 'react-bootstrap'
-
+import {changeUserInfo,checkNickname} from '../../controller/userinfo'
 export default function UserinfoPage(props) {
-    const [Email, setEmail] = useState("");
-    const [Phonenumber, setPhonenumber] = useState("");
-    const [Nickname, setNickname] = useState("");
+    const [email, setemail] = useState("");
+    const [phonenumber, setphonenumber] = useState("");
+    const [nickname, setnickname] = useState("");
+    const [flag, setflag] = useState(true);
     useEffect(()=>{
         getUserInfo().then((body)=>{
 
             if (body){
-                setEmail(body.email);
-                setPhonenumber(body.phonenumber);
-                setNickname(body.nickname);
+                setemail(body.email);
+                setphonenumber(body.phonenumber);
+                setnickname(body.nickname);
             }
             else{
                 //props.history.push('/')
             }
     })
-})
+},[])
+const onNicknameHandler=(event)=>
+{
+    setnickname(event.currentTarget.value)
+    setflag(false)
+    
+}
+
+const onNicknameClickHandler=(event)=>{
+
+    checkNickname(nickname).then((result)=>{
+        if (result.success){
+            alert('사용 가능한 닉네임 입니다.')
+            setflag(true)
+        }
+        else{
+            alert('중복된 닉네임 입니다.')
+        }
+    })
+}
+
+
+ const onSubmitEvent=(event)=>{
+  if(flag)
+    {
+        event.preventDefault();
+        changeUserInfo(nickname).then((res)=>{
+           
+            props.history.push('/');
+            
+        }).catch((err)=>{   
+            alert(err)
+        })
+        
+    }
+    else{
+        alert('닉네임 중복확인을 해주세요')
+    }
+}
        
 
     return (
-        
+        <h1>유저 정보
         <div style={{
             display:'flex',justifyContent:'center',alignItems:'center',
             width:'100%',height:'100vh'
         }}>
-        <h1>유저 정보</h1>
-           <form style={{display:'flex',flexDirection:'column'}}>
+        
+           <form style={{display:'flex',flexDirection:'column'}}  onSubmit={onSubmitEvent}>
                <label>이메일</label>
-               <input type="text" value={Email} placeholder={Email}></input>
+               <input type="text" value={email} placeholder={email} disabled></input>
                <label>전화번호</label>
-               <input type="text" value={Phonenumber} placeholder={Phonenumber}></input>
+               <input type="text" value={phonenumber} placeholder={phonenumber} disabled></input>
                <label>닉네임</label>
-               <input type="text" value={Nickname} placeholder={Nickname}></input>
+               <input type="text" value={nickname} placeholder={nickname} onChange={onNicknameHandler}></input>
+               <Button onClick={onNicknameClickHandler}>
+                   중복확인
+               </Button>
                <br/>
                <Button type='submit'>
                    저장
                </Button>
-           </form>
+           </form> 
+           
         </div>
+        </h1>
      
     )
 }
