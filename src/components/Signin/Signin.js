@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {withRouter,Redirect} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {signin} from '../../controller/user'
 import Cookies from 'universal-cookie';
 import {Button} from "react-bootstrap";
