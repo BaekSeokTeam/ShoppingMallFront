@@ -2,10 +2,9 @@ import React,{useState,useEffect} from 'react';
 import { getUserInfo } from '../../controller/user';
 import {Button} from 'react-bootstrap';
 import {changeUserInfo,checkNickname} from '../../controller/userinfo';
-import { useRefresh } from 'react-tidy';
 import {withRouter} from 'react-router-dom';
 function Userinfo(props) {
-    const refresh = useRefresh()
+
     const [email, setemail] = useState("");
     const [phonenumber, setphonenumber] = useState("");
     const [nickname, setnickname] = useState("");
