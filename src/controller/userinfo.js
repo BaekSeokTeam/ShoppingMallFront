@@ -18,12 +18,34 @@ export const changeUserInfo = (nickname) => {
           resolve(res.data.body);
         })
         .catch((err) => {
-            console.log(2)
+   
           reject(err);
         });
     });
   };
 
+  export const changeAddress = (address) => {
+      
+   
+    return new Promise((resolve, reject) => {
+        const data={
+            address:address
+        }
+       
+            axios.post('/api/userinfo/address',data,header)
+           
+        
+        .then((res) => {
+            console.log(res)
+  
+          resolve(res.data.body);
+        })
+        .catch((err) => {
+ 
+          reject(err);
+        });
+    });
+  };
   export const checkNickname = (nickname) => {
       
    

@@ -9,9 +9,11 @@ function Signin(props) {
 
     const onEmailHandler=(event)=>{
         setEmail(event.currentTarget.value)
+        
     }
     const onPasswordHandler=(event)=>{
         setPassword(event.currentTarget.value)
+        
     }
     const onSubmitEvent=(event)=>
     {
