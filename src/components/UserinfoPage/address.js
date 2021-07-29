@@ -8,23 +8,29 @@ import { changeAddress } from '../../controller/userinfo';
 
 const EachAddress=(props)=>{
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [road, setroad] = useState(props.address.roadAddr)
   const [detailed, setdetailed] = useState(props.address.detailedAddr)
-  const detailedAddrHandler=async(event)=>{
-    
-    
-    props.onChange(road,event.currentTarget.value);
-    await setdetailed(event.currentTarget.value)
-      
-    
-  }
 
-  const changeRoad=async (data)=>{
+
+
+  useEffect(() => {
+    const transfer=()=>{
+      props.onChange(road,detailed);
+    }
+    transfer();
+  }, [road,detailed,props])
+
+  const detailedAddrHandler=(event)=>{
+      setdetailed(event.currentTarget.value,()=>{
+      
+    })
+  }
+  
+  const changeRoad=(data)=>{
     
-    await setroad(data);
+    setroad(data);
     props.onChange(road,detailed);
     
   }
