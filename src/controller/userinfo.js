@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import {header} from '../components/Config'
 export const changeUserInfo = (nickname) => {
       

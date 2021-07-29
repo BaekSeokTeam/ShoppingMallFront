@@ -1,9 +1,8 @@
-import React,{useState,useLayoutEffect} from 'react'
+import React from 'react'
 import {Nav,NavDropdown,Navbar,Container,Button} from "react-bootstrap";
 import { withRouter } from 'react-router-dom'
 import { removeToken } from "../../controller/user";
-import axios from 'axios'
-import {header} from '../Config'
+
 function NavComponent(props) {
  
   return (<Navbar bg="light" expand="lg">

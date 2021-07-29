@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import {Button,Modal,closeButton, CloseButton,Form} from 'react-bootstrap'
+import {Button,Modal,CloseButton,Form} from 'react-bootstrap'
 import DaumAddress from "./DaumAdress";
 import { getUserInfo } from '../../controller/user';
 import { changeAddress } from '../../controller/userinfo';
@@ -18,7 +18,7 @@ const EachAddress=(props)=>{
     
     props.onChange(road,event.currentTarget.value);
     await setdetailed(event.currentTarget.value)
-    
+      
     
   }
 
