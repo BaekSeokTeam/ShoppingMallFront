@@ -40,7 +40,7 @@ const EachAddress=(props)=>{
     <Form.Group>
       <Form.Label>주소</Form.Label>
         <Form.Control type="text" placeholder={road} readOnly/>
-        <input type="text" value ={detailed} placeholder={detailed} onChange={detailedAddrHandler}/>
+        <Form.Control type="text" value ={detailed} placeholder={detailed} onChange={detailedAddrHandler}/>
     </Form.Group>
       <Button variant="primary" onClick={handleShow}>
         주소지 변경

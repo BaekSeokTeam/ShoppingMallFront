@@ -12,7 +12,7 @@ export const changeUserInfo = (nickname) => {
            
         
         .then((res) => {
-            console.log(res)
+            
   
           resolve(res.data.body);
         })
@@ -22,7 +22,41 @@ export const changeUserInfo = (nickname) => {
         });
     });
   };
-
+  export const getCart = () => {
+      
+   
+    return new Promise((resolve, reject) => {
+      
+            axios.get('/api/cart/showall',header)
+           
+        
+        .then((res) => {
+          
+  
+          resolve(res.data.cart);
+        })
+        .catch((err) => {
+   
+          reject(err);
+        });
+    });
+  };
+  export const deleteCart = (cart) => {
+      const data={
+        cart:cart
+      }
+   
+    return new Promise((resolve, reject) => {
+    axios.post('/api/cart/delete',data,header)
+        .then((res) => {
+          console.log(res)
+          resolve(res.data.success);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
   export const changeAddress = (address) => {
       
    

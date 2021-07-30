@@ -9,7 +9,7 @@ export default function UserInfoTab(props){
 
 
     return(
-<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+<Tabs defaultActiveKey="Userinfo" id="uncontrolled-tab-example" className="mb-3">
   <Tab eventKey="Userinfo" title="유저정보">
     <Userinfo />
   </Tab>
