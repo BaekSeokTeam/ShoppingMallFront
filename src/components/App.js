@@ -8,7 +8,8 @@ import Userinfo from "./UserinfoPage/UserinfoPage";
 import NavComponent from "./nav/navbar";
 import OrderPage from "./Order/OrderPage";
 import BoardPage from "./Board/BoardPage";
-import ItemPage from "./Item/ItemPage";
+import ItemListPage from "./Item/ItemPage";
+import Item from "./Item/Item";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getUserInfo } from "../controller/user";
 export default function App() {
@@ -42,8 +43,9 @@ export default function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/userinfo" component={Userinfo} />
           <Route path="/order" component={OrderPage} />
-          <Route path="/items" component={ItemPage} />
+          <Route path="/itemlist" component={ItemListPage} />
           <Route path="/board" component={BoardPage} />
+          <Route path="/item" component={Item} />
         </Switch>
       </div>
     </Router>

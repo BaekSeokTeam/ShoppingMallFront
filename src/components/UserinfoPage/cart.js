@@ -73,5 +73,7 @@ export default function Cart() {
     }
     return result;
   };
-  return <div>{rendering()}</div>;
+  return (
+    <div style={{ display: "flex", flexDirection: "row" }}>{rendering()}</div>
+  );
 }
