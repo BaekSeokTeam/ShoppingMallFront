@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
-import { Container, Carousel } from "react-bootstrap";
+import { Container, Carousel, Dropdown, Button } from "react-bootstrap";
 function Item(props) {
   const parsed = queryString.parse(props.location.search);
 
@@ -11,7 +11,11 @@ function Item(props) {
     description: "",
     price: 0,
     imgURL: [],
+    size: [],
+    count: [],
+    uploadedDate: "",
   });
+  const [selectedSize, setselectedSize] = useState(0);
   useEffect(() => {
     const param = {
       item: parsed.id,
@@ -27,7 +31,7 @@ function Item(props) {
     var result = [];
     for (var i = 0; i < item.imgURL.length; i++) {
       result.push(
-        <Carousel.Item>
+        <Carousel.Item key={i}>
           <img
             className="d-block w-100"
             src={item.imgURL[i]}
@@ -38,21 +42,66 @@ function Item(props) {
     }
     return result;
   };
-  const style = {
-    display: "inline-block",
-    width: "600px",
-    height: "750px",
-    border: "2px solid black",
+
+  const rendering2 = () => {
+    var result = [];
+    for (var i = 0; i < item.size.length; i++) {
+      result.push(
+        <Dropdown.Item
+          key={i}
+          eventKey={i}
+          onSelect={(evt) => {
+            setselectedSize(evt);
+          }}
+        >
+          {item.size[i]}
+        </Dropdown.Item>
+      );
+    }
+    return result;
   };
+
   return (
-    <Container>
-      <div>
-        <Carousel variant="dark" style={style}>
-          {rendering1()}
-        </Carousel>
+    <Container
+      style={{
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <Carousel
+        variant="dark"
+        style={{
+          display: "inline-block",
+          width: "600px",
+          height: "750px",
+          border: "2px solid black",
+        }}
+      >
+        {rendering1()}
+      </Carousel>
+      <div
+        style={{
+          display: "inline-block",
+          width: "600px",
+          height: "750px",
+          border: "2px solid black",
+        }}
+      >
         <div>{item.name}</div>
         <div>{item.description}</div>
-        <div>{item.price}</div>
+        <div>{item.price}원</div>
+        <Dropdown>
+          <Dropdown.Toggle
+            variant="success"
+            id="dropdown-basic"
+            style={{ backgroundColor: "black" }}
+          >
+            {item.size[selectedSize]}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>{rendering2()}</Dropdown.Menu>
+        </Dropdown>
+        <Button>장바구니 담기</Button>
+        <Button>바로 구매</Button>
       </div>
     </Container>
   );
