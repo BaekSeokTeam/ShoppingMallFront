@@ -31,7 +31,6 @@ export const signin = (email, password) => {
 };
 export const getUserInfo = () => {
   return new Promise((resolve, reject) => {
-    console.log(`Bearer ${token()}`);
     axios({
       method: "get",
       url: "/api/userinfo",
@@ -54,6 +53,25 @@ export const signup = (body) => {
       .post("api/users/signup", body)
       .then((res) => {
         resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+const header = {
+  headers: {
+    Authorization: `Bearer ${token()}`,
+  },
+};
+export const auth = () => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "get",
+      url: "/api/users/auth",
+    })
+      .then((res) => {
+        resolve(res.data.user);
       })
       .catch((err) => {
         reject(err);

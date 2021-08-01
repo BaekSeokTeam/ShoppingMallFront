@@ -21,7 +21,7 @@ function Signin(props) {
           var cookies = new Cookies();
 
           cookies.set("auth", res.token);
-
+          props.change();
           props.history.push("/");
         } else {
           alert(res.message);
