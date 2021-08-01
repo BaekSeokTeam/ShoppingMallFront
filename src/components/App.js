@@ -6,6 +6,9 @@ import Signin from "./Signin/Signin";
 import Signup from "./Signup/Signup";
 import Userinfo from "./UserinfoPage/UserinfoPage";
 import NavComponent from "./nav/navbar";
+import OrderPage from "./Order/OrderPage";
+import BoardPage from "./Board/BoardPage";
+import ItemPage from "./Item/ItemPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getUserInfo } from "../controller/user";
 export default function App() {
@@ -17,7 +20,6 @@ export default function App() {
     setchange(newState);
   };
   useEffect(() => {
-    console.log(1111);
     getUserInfo().then((res) => {
       if (res) {
         setlogin(true);
@@ -37,10 +39,11 @@ export default function App() {
             path="/signin"
             render={() => <Signin login={login} change={changeState} />}
           />
-
           <Route path="/signup" component={Signup} />
-
           <Route path="/userinfo" component={Userinfo} />
+          <Route path="/order" component={OrderPage} />
+          <Route path="/items" component={ItemPage} />
+          <Route path="/board" component={BoardPage} />
         </Switch>
       </div>
     </Router>
