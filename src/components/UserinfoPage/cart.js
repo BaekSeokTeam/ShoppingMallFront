@@ -9,10 +9,14 @@ function EachCart(props) {
   const clickEvent = () => {
     props.onClick(props.idx);
   };
-  const [item, setitem] = useState({ name: "", size: ["", "", "", "", ""] });
+  const [item, setitem] = useState({
+    name: "",
+    size: ["", "", "", "", ""],
+    price: "",
+    imgURL: "holder.js/100px180",
+  });
 
   useEffect(() => {
-    console.log(123123);
     const getItem = async () => {
       const param = {
         item: props.cart.item,
@@ -27,11 +31,11 @@ function EachCart(props) {
 
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img variant="top" src={item.imgURL[0]} />
       <Card.Body>
         <Card.Title>{item.name}</Card.Title>
-        <Card.Text>{props.cart._id}</Card.Text>
         <Card.Text>{item.size[props.cart.sizeIdx]}</Card.Text>
+        <Card.Text>{item.price}</Card.Text>
         <Button variant="primary">결제하기</Button>
         <Button variant="secondary" onClick={clickEvent}>
           삭제하기
