@@ -1,17 +1,43 @@
 import React, { useState, useEffect } from "react";
+import { Card } from "react-bootstrap";
 import { getCart } from "../../controller/userinfo";
 import { Button } from "react-bootstrap";
 import { deleteCart } from "../../controller/userinfo";
+import axios from "axios";
 
 function EachCart(props) {
   const clickEvent = () => {
     props.onClick(props.idx);
   };
+  const [item, setitem] = useState({ name: "", size: ["", "", "", "", ""] });
+
+  useEffect(() => {
+    console.log(123123);
+    const getItem = async () => {
+      const param = {
+        item: props.cart.item,
+      };
+      const gettedItem = await axios.get("api/item/get", { params: param });
+
+      setitem(gettedItem.data.item);
+      console.log(gettedItem.data.item);
+    };
+    getItem();
+  }, [props]);
+
   return (
-    <div>
-      {props.cart._id}
-      <Button onClick={clickEvent}> 삭제</Button>
-    </div>
+    <Card style={{ width: "18rem" }}>
+      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Body>
+        <Card.Title>{item.name}</Card.Title>
+        <Card.Text>{props.cart._id}</Card.Text>
+        <Card.Text>{item.size[props.cart.sizeIdx]}</Card.Text>
+        <Button variant="primary">결제하기</Button>
+        <Button variant="secondary" onClick={clickEvent}>
+          삭제하기
+        </Button>
+      </Card.Body>
+    </Card>
   );
 }
 export default function Cart() {
