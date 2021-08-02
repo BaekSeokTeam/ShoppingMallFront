@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import queryString from "query-string";
 import { Container, Carousel, Dropdown, Button } from "react-bootstrap";
 function Item(props) {
@@ -101,7 +101,13 @@ function Item(props) {
           <Dropdown.Menu>{rendering2()}</Dropdown.Menu>
         </Dropdown>
         <Button>장바구니 담기</Button>
-        <Button>바로 구매</Button>
+        <Link
+          to={`/order/?cartid=${null}&itemid=${
+            item._id
+          }&sizeidx=${selectedSize}&cart=${false}`}
+        >
+          <Button>바로 구매</Button>
+        </Link>
       </div>
     </Container>
   );

@@ -41,11 +41,13 @@ export default function App() {
             render={() => <Signin login={login} change={changeState} />}
           />
           <Route path="/signup" component={Signup} />
+
           <Route path="/userinfo" component={Userinfo} />
           <Route path="/order" component={OrderPage} />
           <Route path="/itemlist" component={ItemListPage} />
           <Route path="/board" component={BoardPage} />
           <Route path="/item" component={Item} />
+          <Route path="/order:id:cart" component={OrderPage} />
         </Switch>
       </div>
     </Router>

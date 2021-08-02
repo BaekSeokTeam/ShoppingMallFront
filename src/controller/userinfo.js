@@ -21,7 +21,6 @@ export const getCart = () => {
   return new Promise((resolve, reject) => {
     axios
       .get("/api/cart/showall", header)
-
       .then((res) => {
         resolve(res.data.cart);
       })
@@ -71,7 +70,6 @@ export const checkNickname = (nickname) => {
     const param = {
       nickname: nickname,
     };
-
     axios
       .get("/api/users/nicknamecheck", { params: param, headers: header })
 

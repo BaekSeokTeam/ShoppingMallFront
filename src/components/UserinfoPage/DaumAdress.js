@@ -18,6 +18,7 @@ export default function DaumAddress(props) {
     }
 
     props.onRevise(fullAddress);
+    props.onShow();
   };
 
   return <DaumPostcode onComplete={handleComplete} />;

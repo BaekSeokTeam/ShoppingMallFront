@@ -10,7 +10,6 @@ const EachAddress = (props) => {
   const handleShow = () => setShow(true);
   const [road, setroad] = useState(props.address.roadAddr);
   const [detailed, setdetailed] = useState(props.address.detailedAddr);
-
   useEffect(() => {
     const transfer = () => {
       props.onChange(road, detailed);
@@ -45,7 +44,7 @@ const EachAddress = (props) => {
       <Modal show={show} onHide={handleClose}>
         <CloseButton onClick={handleClose}></CloseButton>
         <Modal.Body>
-          <DaumAddress onRevise={changeRoad}></DaumAddress>
+          <DaumAddress onRevise={changeRoad} onShow={handleClose}></DaumAddress>
         </Modal.Body>
       </Modal>
     </>

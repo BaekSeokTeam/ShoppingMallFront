@@ -4,7 +4,7 @@ import { getCart } from "../../controller/userinfo";
 import { Button } from "react-bootstrap";
 import { deleteCart } from "../../controller/userinfo";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 function EachCart(props) {
   const clickEvent = () => {
     props.onClick(props.idx);
@@ -24,7 +24,6 @@ function EachCart(props) {
       const gettedItem = await axios.get("api/item/get", { params: param });
 
       setitem(gettedItem.data.item);
-      console.log(gettedItem.data.item);
     };
     getItem();
   }, [props]);
@@ -36,7 +35,14 @@ function EachCart(props) {
         <Card.Title>{item.name}</Card.Title>
         <Card.Text>{item.size[props.cart.sizeIdx]}</Card.Text>
         <Card.Text>{item.price}</Card.Text>
-        <Button variant="primary">결제하기</Button>
+        <Link
+          to={`/order/?cartid=${props.cart._id}&itemid=${
+            props.cart.item
+          }&sizeidx=${props.cart.sizeIdx}&cart=${true}`}
+        >
+          <Button variant="primary">결제하기</Button>
+        </Link>
+
         <Button variant="secondary" onClick={clickEvent}>
           삭제하기
         </Button>
