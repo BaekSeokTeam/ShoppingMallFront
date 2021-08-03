@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Nav, Tab, Row, Col, Card } from "react-bootstrap";
 import axios from "axios";
@@ -10,7 +10,7 @@ function EachCard(props) {
     price: "",
     imgURL: "holder.js/100px180",
   });
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getItem = async () => {
       const param = {
         item: props.item._id,
@@ -37,9 +37,10 @@ function EachCard(props) {
     </Card>
   );
 }
+
 function ItemList(props) {
   const [items, setitems] = useState([]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setitems(props.items);
   }, [props]);
   const rendering = () => {
@@ -53,6 +54,7 @@ function ItemList(props) {
     <div style={{ display: "flex", flexDirection: "row" }}>{rendering()}</div>
   );
 }
+
 function ItemListPage(props) {
   const [shirt, setshirt] = useState([]);
   const [pants, setpants] = useState([]);
