@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Nav, Tab, Row, Col, Card } from "react-bootstrap";
 import axios from "axios";
+
 function EachCard(props) {
   const [item, setitem] = useState({
     _id: "",
@@ -21,10 +22,16 @@ function EachCard(props) {
   }, [props]);
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card bg="primary" text="light" style={{ width: "18rem" }}>
       <Card.Img variant="top" src={item.imgURL[0]} />
       <Card.Body>
-        <Card.Link href={`/item?id=${item._id}`}>{item.name}</Card.Link>
+        <Card.Link
+          style={{ color: "#FFF" }}
+          text="light"
+          href={`/item?id=${item._id}`}
+        >
+          {item.name}
+        </Card.Link>
         <Card.Text>{item.price}</Card.Text>
       </Card.Body>
     </Card>
@@ -63,7 +70,6 @@ function ItemListPage(props) {
         } else {
         }
       }
-
       setshirt(shirtTemp);
       setpants(pantsTemp);
     };

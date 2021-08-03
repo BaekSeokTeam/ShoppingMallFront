@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Card } from "react-bootstrap";
 import { getCart } from "../../controller/userinfo";
 import { Button } from "react-bootstrap";
@@ -54,16 +54,16 @@ export default function Cart() {
   const [cart, setcart] = useState([]);
   const [change, setchange] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getCart().then((data) => {
       setcart(data);
     });
   }, [change]);
   const removeCart = (idx) => {
-    cart.splice(idx, 1);
     deleteCart(cart[idx]._id).then((res) => {
       setchange(!change);
     });
+    cart.splice(idx, 1);
   };
   const rendering = () => {
     const result = [];

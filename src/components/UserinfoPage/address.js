@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Button, Modal, CloseButton, Form } from "react-bootstrap";
 import DaumAddress from "./DaumAdress";
 import { getUserInfo } from "../../controller/user";
@@ -56,7 +56,7 @@ export default function Address() {
   const [roadAddr, setroadAddr] = useState("");
   const [detailedAddr, setdetailedAddr] = useState("");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getUserInfo().then((body) => {
       if (body) {
         setaddress(body.address);

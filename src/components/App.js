@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Landingpage from "./LandingPage/LandingPage";
@@ -20,7 +20,7 @@ export default function App() {
     var newState = !change;
     setchange(newState);
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     getUserInfo().then((res) => {
       if (res) {
         setlogin(true);
@@ -41,7 +41,6 @@ export default function App() {
             render={() => <Signin login={login} change={changeState} />}
           />
           <Route path="/signup" component={Signup} />
-
           <Route path="/userinfo" component={Userinfo} />
           <Route path="/order" component={OrderPage} />
           <Route path="/itemlist" component={ItemListPage} />

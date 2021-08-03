@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { withRouter, Link } from "react-router-dom";
 import queryString from "query-string";
 import { Container, Carousel, Dropdown, Button } from "react-bootstrap";
+import { header } from "../Config";
 function Item(props) {
   const parsed = queryString.parse(props.location.search);
 
@@ -27,6 +28,16 @@ function Item(props) {
     };
     getItem();
   }, []);
+
+  const addCart = () => {
+    const data = {
+      item: item._id,
+      sizeIdx: selectedSize,
+    };
+    axios.post("/api/cart/cartadd", data, header).then((res) => {
+      alert("장바구니에 추가되었습니다");
+    });
+  };
   const rendering1 = () => {
     var result = [];
     for (var i = 0; i < item.imgURL.length; i++) {
@@ -69,7 +80,6 @@ function Item(props) {
       }}
     >
       <Carousel
-        variant="dark"
         style={{
           display: "inline-block",
           width: "600px",
@@ -100,7 +110,7 @@ function Item(props) {
           </Dropdown.Toggle>
           <Dropdown.Menu>{rendering2()}</Dropdown.Menu>
         </Dropdown>
-        <Button>장바구니 담기</Button>
+        <Button onClick={addCart}>장바구니 담기</Button>
         <Link
           to={`/order/?cartid=${null}&itemid=${
             item._id

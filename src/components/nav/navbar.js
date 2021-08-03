@@ -4,32 +4,13 @@ import { withRouter } from "react-router-dom";
 import { removeToken } from "../../controller/user";
 
 function NavComponent(props) {
-  const rendering1 = (props) => {
-    if (props.login) {
-      return (
-        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-          <NavDropdown.Item href="/userinfo">유저정보</NavDropdown.Item>
-          <NavDropdown.Divider />
-        </NavDropdown>
-      );
-    } else {
-      return (
-        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-          <NavDropdown.Item href="/signin" hi="123">
-            로그인
-          </NavDropdown.Item>
-          <NavDropdown.Item href="/signup">회원가입</NavDropdown.Item>
-          <NavDropdown.Divider />
-        </NavDropdown>
-      );
-    }
-  };
   const rendering2 = (props) => {
     if (!props.login) {
       return;
     } else {
       return (
         <Button
+          variant="outline-light"
           onClick={() => {
             removeToken();
             props.change();
@@ -41,8 +22,9 @@ function NavComponent(props) {
       );
     }
   };
+
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="ligth" variant="primary" expand="lg">
       <Container>
         <Navbar.Brand href="/">DK Shop</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -51,10 +33,34 @@ function NavComponent(props) {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/itemlist">Item</Nav.Link>
             <Nav.Link href="/board">Board</Nav.Link>
+            {props.login ? (
+              <NavDropdown title="Dropdown">
+                <NavDropdown.Item href="/userinfo">유저정보</NavDropdown.Item>
+                <NavDropdown.Divider />
+              </NavDropdown>
+            ) : (
+              <NavDropdown title="Dropdown">
+                <NavDropdown.Item href="/signin" hi="123">
+                  로그인
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/signup">회원가입</NavDropdown.Item>
+                <NavDropdown.Divider />
+              </NavDropdown>
+            )}
           </Nav>
-        </Navbar.Collapse>
-        {rendering1(props)}
-        {rendering2(props)}
+        </Navbar.Collapse>{" "}
+        {props.login ? (
+          <Button
+            variant="outline-primary"
+            onClick={() => {
+              removeToken();
+              props.change();
+              props.history.push("/");
+            }}
+          >
+            logout
+          </Button>
+        ) : null}
       </Container>
     </Navbar>
   );
