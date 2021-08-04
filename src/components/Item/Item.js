@@ -23,7 +23,6 @@ function Item(props) {
     };
     const getItem = async () => {
       const gettedItem = await axios.get("/api/item/get", { params: param });
-      console.log(gettedItem.data);
       setitem(gettedItem.data.item);
     };
     getItem();
@@ -118,6 +117,7 @@ function Item(props) {
         >
           <Button>바로 구매</Button>
         </Link>
+        {props.admin ? <Button variant="secondary">아이템 삭제</Button> : null}
       </div>
     </Container>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { Nav, Tab, Row, Col, Card, Pagination } from "react-bootstrap";
+import { Nav, Tab, Row, Col, Card, Pagination, Button } from "react-bootstrap";
 import axios from "axios";
 
 const PaginationBar = ({ postsPerPage, totalPosts, paginate, current }) => {
@@ -9,7 +9,7 @@ const PaginationBar = ({ postsPerPage, totalPosts, paginate, current }) => {
     pageNumber.push(i);
   }
   return (
-    <Pagination>
+    <Pagination className="d-flex justify-content-center">
       {pageNumber.map((pageNum) => (
         <Pagination.Item
           key={pageNum}
@@ -142,6 +142,7 @@ function ItemListPage(props) {
           </Tab.Content>
         </Col>
       </Row>
+      {props.admin ? <Button variant="secondary">아이템 추가</Button> : null}
     </Tab.Container>
   );
 }

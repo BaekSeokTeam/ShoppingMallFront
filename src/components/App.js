@@ -10,10 +10,12 @@ import OrderPage from "./Order/OrderPage";
 import BoardPage from "./Board/BoardPage";
 import ItemListPage from "./Item/ItemPage";
 import Item from "./Item/Item";
+import ItemAdd from "./Item/AddItem";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getUserInfo } from "../controller/user";
 export default function App() {
   const [login, setlogin] = useState(false);
+  const [admin, setadmin] = useState(false);
   const [change, setchange] = useState(false);
 
   const changeState = () => {
@@ -24,8 +26,12 @@ export default function App() {
     getUserInfo().then((res) => {
       if (res) {
         setlogin(true);
+        if (res.admin) {
+          setadmin(true);
+        }
       } else {
         setlogin(false);
+        setadmin(false);
       }
     });
   }, [change]);
@@ -43,10 +49,13 @@ export default function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/userinfo" component={Userinfo} />
           <Route path="/order" component={OrderPage} />
-          <Route path="/itemlist" component={ItemListPage} />
+          <Route
+            path="/itemlist"
+            render={() => <ItemListPage admin={admin} />}
+          />
           <Route path="/board" component={BoardPage} />
-          <Route path="/item" component={Item} />
-          <Route path="/order:id:cart" component={OrderPage} />
+          <Route path="/item" render={() => <Item admin={admin} />} />
+          <Route path="/itemadd" component={ItemAdd} />
         </Switch>
       </div>
     </Router>
