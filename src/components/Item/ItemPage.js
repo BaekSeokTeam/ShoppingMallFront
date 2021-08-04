@@ -1,9 +1,40 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Nav, Tab, Row, Col, Card, Pagination } from "react-bootstrap";
-import PageItem from "react-bootstrap/PageItem";
 import axios from "axios";
 
+const PaginationBar = ({ postsPerPage, totalPosts, paginate, current }) => {
+  const pageNumber = [];
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    pageNumber.push(i);
+  }
+  return (
+    <Pagination>
+      {pageNumber.map((pageNum) => (
+        <Pagination.Item
+          key={pageNum}
+          active={pageNum === current}
+          onClick={() => paginate(pageNum)}
+        >
+          {pageNum}
+        </Pagination.Item>
+      ))}
+    </Pagination>
+  );
+};
+
+const Posts = ({ posts, loading }) => {
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+  return (
+    <ul className="list">
+      {posts.map((post) => (
+        <EachCard key={post._id} item={post}></EachCard>
+      ))}
+    </ul>
+  );
+};
 function EachCard(props) {
   const [item, setitem] = useState({
     _id: "",
@@ -21,7 +52,6 @@ function EachCard(props) {
     };
     getItem();
   }, [props]);
-
   return (
     <Card bg="primary" text="light" style={{ width: "18rem" }}>
       <Card.Img variant="top" src={item.imgURL[0]} />
@@ -39,36 +69,29 @@ function EachCard(props) {
   );
 }
 
-let active = 2;
-let items = [];
-for (let number = 1; number <= 5; number++) {
-  items.push(
-    <Pagination.Item key={number} active={number === active}>
-      {number}
-    </Pagination.Item>
-  );
-}
-
 function ItemList(props) {
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(1);
   const [items, setitems] = useState([]);
-  const [page, setPage] = useState(4);
   useEffect(() => {
+    setLoading(true);
     setitems(props.items);
-  }, [props, page]);
-  const changePage = (num) => {
-    setPage(num);
-    console.log(page);
-  };
-  const rendering = () => {
-    const result = [];
-    for (let i = 0; i < items.length; i++) {
-      result.push(<EachCard key={i} item={items[i]} idx={i}></EachCard>);
-    }
-    return result;
-  };
+    setLoading(false);
+  }, [props]);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
-    <div>
-      <div style={{ display: "flex", flexDirection: "row" }}>{rendering()}</div>
+    <div className="container">
+      <Posts posts={currentPosts} loading={loading} />
+      <PaginationBar
+        postsPerPage={postsPerPage}
+        totalPosts={items.length}
+        paginate={paginate}
+        current={currentPage}
+      />
     </div>
   );
 }
