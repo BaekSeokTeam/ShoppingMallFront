@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { Nav, Tab, Row, Col, Card } from "react-bootstrap";
+import { Nav, Tab, Row, Col, Card, Pagination } from "react-bootstrap";
+import PageItem from "react-bootstrap/PageItem";
 import axios from "axios";
 
 function EachCard(props) {
@@ -10,7 +11,7 @@ function EachCard(props) {
     price: "",
     imgURL: "holder.js/100px180",
   });
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getItem = async () => {
       const param = {
         item: props.item._id,
@@ -38,11 +39,26 @@ function EachCard(props) {
   );
 }
 
+let active = 2;
+let items = [];
+for (let number = 1; number <= 5; number++) {
+  items.push(
+    <Pagination.Item key={number} active={number === active}>
+      {number}
+    </Pagination.Item>
+  );
+}
+
 function ItemList(props) {
   const [items, setitems] = useState([]);
-  useLayoutEffect(() => {
+  const [page, setPage] = useState(4);
+  useEffect(() => {
     setitems(props.items);
-  }, [props]);
+  }, [props, page]);
+  const changePage = (num) => {
+    setPage(num);
+    console.log(page);
+  };
   const rendering = () => {
     const result = [];
     for (let i = 0; i < items.length; i++) {
@@ -51,7 +67,9 @@ function ItemList(props) {
     return result;
   };
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>{rendering()}</div>
+    <div>
+      <div style={{ display: "flex", flexDirection: "row" }}>{rendering()}</div>
+    </div>
   );
 }
 
@@ -63,7 +81,7 @@ function ItemListPage(props) {
       const items = await axios.get("api/item/viewAll");
       var shirtTemp = [];
       var pantsTemp = [];
-      console.log(items.data);
+
       for (var i = 0; i < items.data.length; i++) {
         if (items.data[i].Tag[0] === "shirt") {
           shirtTemp.push(items.data[i]);
