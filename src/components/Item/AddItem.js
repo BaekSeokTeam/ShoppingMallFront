@@ -1,13 +1,15 @@
+/* eslint-disable array-callback-return */
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import axios from "axios";
 function ItemAdd(props) {
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState(0);
   const [count, setcount] = useState([0]);
   const [tag, settag] = useState([]);
-  const [image, setimage] = useState([null]);
+  const [image, setimage] = useState([""]);
   const [size, setsize] = useState([""]);
   const nameHandler = (e) => {
     setname(e.currentTarget.value);
@@ -31,14 +33,34 @@ function ItemAdd(props) {
     let idx = e.currentTarget.attributes.idx.value;
     let arr = [...count];
     arr[idx] = e.currentTarget.value;
-    setsize(arr);
+    setcount(arr);
   };
   const imageHandler = (e) => {
-    console.log(e.currentTarget.files);
     let idx = e.currentTarget.attributes.idx.value;
     let arr = [...image];
     arr[idx] = e.currentTarget.files[0];
     setimage(arr);
+  };
+
+  const submitHandler = async () => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", price);
+    tag.map((eachTag) => {
+      formData.append("tag", eachTag);
+    });
+    size.map((eachSize) => {
+      formData.append("size", eachSize);
+    });
+    count.map((eachCount) => {
+      formData.append("count", eachCount);
+    });
+    image.map((eachImage) => {
+      formData.append("image", eachImage);
+    });
+    const res = await axios.post("/api/item/add", formData);
+    console.log(res);
   };
   return (
     <div
@@ -50,7 +72,10 @@ function ItemAdd(props) {
         height: "100vh",
       }}
     >
-      <form style={{ display: "flex", flexDirection: "column" }}>
+      <form
+        style={{ display: "flex", flexDirection: "column" }}
+        onSubmit={submitHandler}
+      >
         <label>상품 이름</label>
         <input type="text" value={name} onChange={nameHandler}></input>
         <label>상품 설명</label>
@@ -148,6 +173,7 @@ function ItemAdd(props) {
         >
           삭제
         </Button>
+        <Button type="submit">확인</Button>
       </form>
     </div>
   );
