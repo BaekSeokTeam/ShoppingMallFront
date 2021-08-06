@@ -142,7 +142,16 @@ function ItemListPage(props) {
           </Tab.Content>
         </Col>
       </Row>
-      {props.admin ? <Button variant="secondary">아이템 추가</Button> : null}
+      {props.admin ? (
+        <Button
+          variant="secondary"
+          onClick={() => {
+            props.history.push("/itemadd");
+          }}
+        >
+          아이템 추가
+        </Button>
+      ) : null}
     </Tab.Container>
   );
 }

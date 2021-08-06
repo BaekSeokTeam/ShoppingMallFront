@@ -8,6 +8,7 @@ function Item(props) {
   const parsed = queryString.parse(props.location.search);
 
   const [item, setitem] = useState({
+    _id: "",
     name: "",
     description: "",
     price: 0,
@@ -117,7 +118,27 @@ function Item(props) {
         >
           <Button>바로 구매</Button>
         </Link>
-        {props.admin ? <Button variant="secondary">아이템 삭제</Button> : null}
+        {props.admin ? (
+          <div>
+            <Button
+              variant="secondary"
+              onClick={async () => {
+                const data = {
+                  name: item.name,
+                };
+                const res = await axios.post("api/item/delete", data);
+                if (res) {
+                  props.history.push("/");
+                }
+              }}
+            >
+              삭제
+            </Button>
+            <Link to={`/itemedit/?itemid=${item._id}`}>
+              <Button variant="secondary">편집</Button>
+            </Link>
+          </div>
+        ) : null}
       </div>
     </Container>
   );

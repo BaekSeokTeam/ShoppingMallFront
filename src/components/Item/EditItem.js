@@ -1,9 +1,13 @@
 /* eslint-disable array-callback-return */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import queryString from "query-string";
 import axios from "axios";
-function ItemAdd(props) {
+function ItemEdit(props) {
+  const { search } = props.location; // 문자열 형식으로 결과값이 반환된다.
+  const queryObj = queryString.parse(search);
+  const itemId = queryObj.itemid;
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState(0);
@@ -11,6 +15,23 @@ function ItemAdd(props) {
   const [tag, settag] = useState([]);
   const [image, setimage] = useState([""]);
   const [size, setsize] = useState([""]);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const param = {
+        item: itemId,
+      };
+      const res = await axios.get("/api/item/get", { params: param });
+      const iteminfo = res.data.item;
+      setname(iteminfo.name);
+      setdescription(iteminfo.description);
+      setprice(iteminfo.price);
+      setcount(iteminfo.count);
+      settag(iteminfo.Tag);
+      setsize(iteminfo.size);
+    };
+    fetchdata();
+  }, []);
   const nameHandler = (e) => {
     setname(e.currentTarget.value);
   };
@@ -60,9 +81,9 @@ function ItemAdd(props) {
     image.map((eachImage) => {
       formData.append("image", eachImage);
     });
-    console.log(formData);
-    const res = await axios.post("/api/item/add", formData);
+    const res = await axios.post("/api/item/edit", formData);
     console.log(res);
+    props.history.push("/");
   };
   return (
     <div
@@ -90,6 +111,7 @@ function ItemAdd(props) {
             type="radio"
             name="tag"
             value="shirt"
+            checked={tag[0] === "shirt"}
             onChange={tagHandler}
           ></input>
           <label>하의</label>
@@ -97,6 +119,7 @@ function ItemAdd(props) {
             type="radio"
             name="tag"
             value="pants"
+            checked={tag[0] === "pants"}
             onChange={tagHandler}
           ></input>
         </div>
@@ -181,4 +204,4 @@ function ItemAdd(props) {
   );
 }
 
-export default withRouter(ItemAdd);
+export default withRouter(ItemEdit);

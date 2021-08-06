@@ -11,6 +11,7 @@ import BoardPage from "./Board/BoardPage";
 import ItemListPage from "./Item/ItemPage";
 import Item from "./Item/Item";
 import ItemAdd from "./Item/AddItem";
+import ItemEdit from "./Item/EditItem";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getUserInfo } from "../controller/user";
 export default function App() {
@@ -56,6 +57,7 @@ export default function App() {
           <Route path="/board" component={BoardPage} />
           <Route path="/item" render={() => <Item admin={admin} />} />
           <Route path="/itemadd" component={ItemAdd} />
+          <Route path="/itemedit" component={ItemEdit} />
         </Switch>
       </div>
     </Router>
