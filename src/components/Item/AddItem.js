@@ -60,9 +60,9 @@ function ItemAdd(props) {
     image.map((eachImage) => {
       formData.append("image", eachImage);
     });
-    console.log(formData);
+
     const res = await axios.post("/api/item/add", formData);
-    console.log(res);
+    props.history.push("/itemlist");
   };
   return (
     <div

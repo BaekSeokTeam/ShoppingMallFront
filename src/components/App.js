@@ -12,6 +12,7 @@ import ItemListPage from "./Item/ItemPage";
 import Item from "./Item/Item";
 import ItemAdd from "./Item/AddItem";
 import ItemEdit from "./Item/EditItem";
+import UserControl from "./admin/UserControl";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getUserInfo } from "../controller/user";
 export default function App() {
@@ -39,7 +40,7 @@ export default function App() {
   return (
     <Router>
       <div>
-        <NavComponent login={login} change={changeState} />
+        <NavComponent login={login} admin={admin} change={changeState} />
         <Switch>
           <Route exact path="/" component={Landingpage} />
 
@@ -58,6 +59,8 @@ export default function App() {
           <Route path="/item" render={() => <Item admin={admin} />} />
           <Route path="/itemadd" component={ItemAdd} />
           <Route path="/itemedit" component={ItemEdit} />
+          <Route path="/itemedit" component={ItemEdit} />
+          <Route path="/usercontrol" component={UserControl} />
         </Switch>
       </div>
     </Router>

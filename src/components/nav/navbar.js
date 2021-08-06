@@ -48,7 +48,17 @@ function NavComponent(props) {
               </NavDropdown>
             )}
           </Nav>
-        </Navbar.Collapse>{" "}
+        </Navbar.Collapse>
+        {props.admin ? (
+          <Button
+            variant="outline-primary"
+            onClick={() => {
+              props.history.push("/usercontrol");
+            }}
+          >
+            회원관리
+          </Button>
+        ) : null}
         {props.login ? (
           <Button
             variant="outline-primary"

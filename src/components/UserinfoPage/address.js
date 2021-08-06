@@ -3,6 +3,7 @@ import { Button, Modal, CloseButton, Form } from "react-bootstrap";
 import DaumAddress from "./DaumAdress";
 import { getUserInfo } from "../../controller/user";
 import { changeAddress } from "../../controller/userinfo";
+import { withRouter } from "react-router-dom";
 
 const EachAddress = (props) => {
   const [show, setShow] = useState(false);
@@ -18,7 +19,8 @@ const EachAddress = (props) => {
   }, [road, detailed, props]);
 
   const detailedAddrHandler = (event) => {
-    setdetailed(event.currentTarget.value, () => {});
+    setdetailed(event.currentTarget.value);
+    props.onChange(road, detailed);
   };
 
   const changeRoad = (data) => {
@@ -51,7 +53,7 @@ const EachAddress = (props) => {
   );
 };
 
-export default function Address() {
+function Address(props) {
   const [address, setaddress] = useState([]);
   const [roadAddr, setroadAddr] = useState("");
   const [detailedAddr, setdetailedAddr] = useState("");
@@ -59,9 +61,11 @@ export default function Address() {
   useLayoutEffect(() => {
     getUserInfo().then((body) => {
       if (body) {
-        setaddress(body.address);
-        setroadAddr(body.address[0].roadAddr);
-        setdetailedAddr(body.address[0].detailedAddr);
+        if (body.address) {
+          setaddress(body.address);
+          setroadAddr(body.address[0].roadAddr);
+          setdetailedAddr(body.address[0].detailedAddr);
+        }
       } else {
         //props.history.push('/')
       }
@@ -80,18 +84,19 @@ export default function Address() {
     }
     return result;
   };
-  const setSubmitData = async (road, detailed) => {
-    await setroadAddr(road);
-    await setdetailedAddr(detailed);
+  const setSubmitData = (road, detailed) => {
+    setroadAddr(road);
+    setdetailedAddr(detailed);
   };
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     const address = {
       roadAddr: roadAddr,
       detailedAddr: detailedAddr,
     };
     changeAddress(address)
       .then((res) => {
-        console.log(res);
+        props.history.push("/userinfo");
       })
       .catch((err) => {
         alert(err);
@@ -108,3 +113,4 @@ export default function Address() {
     </Form>
   );
 }
+export default withRouter(Address);

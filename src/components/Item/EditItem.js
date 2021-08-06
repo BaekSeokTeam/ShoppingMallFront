@@ -82,8 +82,8 @@ function ItemEdit(props) {
       formData.append("image", eachImage);
     });
     const res = await axios.post("/api/item/edit", formData);
-    console.log(res);
-    props.history.push("/");
+
+    props.history.push("/itemlist");
   };
   return (
     <div
