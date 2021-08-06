@@ -96,7 +96,7 @@ function Address(props) {
     };
     changeAddress(address)
       .then((res) => {
-        props.history.push("/userinfo");
+        props.history.push("/");
       })
       .catch((err) => {
         alert(err);
