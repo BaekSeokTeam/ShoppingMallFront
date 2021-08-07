@@ -59,11 +59,6 @@ export const signup = (body) => {
       });
   });
 };
-const header = {
-  headers: {
-    Authorization: `Bearer ${token()}`,
-  },
-};
 export const auth = () => {
   return new Promise((resolve, reject) => {
     axios({

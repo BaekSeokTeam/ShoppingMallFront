@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 import axios from "axios";
@@ -56,7 +56,8 @@ const EachAddress = (props) => {
 function OrderPage(props) {
   const { search } = props.location; // 문자열 형식으로 결과값이 반환된다.
   const queryObj = queryString.parse(search); // 문자열의 쿼리스트링을 Object로 변환
-  const [cart, setcart] = useState(queryObj.cartid);
+  //const [cart, setcart] = useState(queryObj.cartid);
+  const [point, setpoint] = useState(0);
   const [item, setitem] = useState({
     name: "",
     imgURL: [""],
@@ -72,6 +73,9 @@ function OrderPage(props) {
       params: param,
     }).then((res) => {
       setitem(res.data.item);
+    });
+    getUserInfo().then((res) => {
+      setpoint(res.point);
     });
   }, []);
 
@@ -136,6 +140,9 @@ function OrderPage(props) {
         </div>
       </div>
       <EachAddress info={queryObj}></EachAddress>
+      <div>현재 잔여 포인트:{point}</div>
+      <div>구입 이후 포인트:{point - item.price}</div>
+      <Button>구매</Button>
     </Container>
   );
 }

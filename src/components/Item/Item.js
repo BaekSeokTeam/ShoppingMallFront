@@ -27,7 +27,7 @@ function Item(props) {
       setitem(gettedItem.data.item);
     };
     getItem();
-  }, []);
+  }, [parsed]);
 
   const addCart = () => {
     const data = {
@@ -61,11 +61,13 @@ function Item(props) {
         <Dropdown.Item
           key={i}
           eventKey={i}
+          disabled={item.count[i] === 0}
           onSelect={(evt) => {
             setselectedSize(evt);
           }}
         >
           {item.size[i]}
+          {item.count[i] === 0 ? "(품절)" : null}
         </Dropdown.Item>
       );
     }

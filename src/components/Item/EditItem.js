@@ -31,7 +31,7 @@ function ItemEdit(props) {
       setsize(iteminfo.size);
     };
     fetchdata();
-  }, []);
+  }, [itemId]);
   const nameHandler = (e) => {
     setname(e.currentTarget.value);
   };
@@ -82,8 +82,9 @@ function ItemEdit(props) {
       formData.append("image", eachImage);
     });
     const res = await axios.post("/api/item/edit", formData);
-
-    props.history.push("/itemlist");
+    if (res) {
+      props.history.push("/itemlist");
+    }
   };
   return (
     <div

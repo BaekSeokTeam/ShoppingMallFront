@@ -62,7 +62,9 @@ function ItemAdd(props) {
     });
 
     const res = await axios.post("/api/item/add", formData);
-    props.history.push("/itemlist");
+    if (res) {
+      props.history.push("/itemlist");
+    }
   };
   return (
     <div

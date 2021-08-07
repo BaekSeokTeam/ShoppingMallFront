@@ -4,25 +4,6 @@ import { withRouter } from "react-router-dom";
 import { removeToken } from "../../controller/user";
 
 function NavComponent(props) {
-  const rendering2 = (props) => {
-    if (!props.login) {
-      return;
-    } else {
-      return (
-        <Button
-          variant="outline-light"
-          onClick={() => {
-            removeToken();
-            props.change();
-            props.history.push("/");
-          }}
-        >
-          logout
-        </Button>
-      );
-    }
-  };
-
   return (
     <Navbar bg="ligth" variant="primary" expand="lg">
       <Container>

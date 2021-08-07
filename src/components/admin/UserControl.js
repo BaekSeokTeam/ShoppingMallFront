@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function EachUser(props) {
   const elementStyle = {
     border: "solid",
   };
-  const [user, setuser] = useState(props.user);
+  const [user] = useState(props.user);
   const [givePoint, setgivePoint] = useState(0);
   return (
     <div style={elementStyle} key={user._id}>
