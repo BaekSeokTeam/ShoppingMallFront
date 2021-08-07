@@ -15,6 +15,7 @@ import ItemEdit from "./Item/EditItem";
 import UserControl from "./admin/UserControl";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { getUserInfo } from "../controller/user";
+import Auth from "./hoc/auth";
 export default function App() {
   const [login, setlogin] = useState(false);
   const [admin, setadmin] = useState(false);
@@ -43,24 +44,25 @@ export default function App() {
         <NavComponent login={login} admin={admin} change={changeState} />
         <Switch>
           <Route exact path="/" component={Landingpage} />
-
           <Route
             path="/signin"
             render={() => <Signin login={login} change={changeState} />}
           />
-          <Route path="/signup" component={Signup} />
-          <Route path="/userinfo" component={Userinfo} />
-          <Route path="/order" component={OrderPage} />
+          <Route path="/signup" component={Auth(Signup, false)} />
+          <Route path="/userinfo" component={Auth(Userinfo, true)} />
+          <Route path="/order" component={Auth(OrderPage, true)} />
           <Route
             path="/itemlist"
             render={() => <ItemListPage admin={admin} />}
           />
           <Route path="/board" component={BoardPage} />
           <Route path="/item" render={() => <Item admin={admin} />} />
-          <Route path="/itemadd" component={ItemAdd} />
-          <Route path="/itemedit" component={ItemEdit} />
-          <Route path="/itemedit" component={ItemEdit} />
-          <Route path="/usercontrol" component={UserControl} />
+          <Route path="/itemadd" component={Auth(ItemAdd, true, true)} />
+          <Route path="/itemedit" component={Auth(ItemEdit, true, true)} />
+          <Route
+            path="/usercontrol"
+            component={Auth(UserControl, true, true)}
+          />
         </Switch>
       </div>
     </Router>

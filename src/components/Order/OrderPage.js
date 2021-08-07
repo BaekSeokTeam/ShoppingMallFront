@@ -15,8 +15,10 @@ const EachAddress = (props) => {
 
   useLayoutEffect(() => {
     getUserInfo().then((res) => {
-      setroad(res.address[0].roadAddr);
-      setdetailed(res.address[0].detailedAddr);
+      if (res) {
+        setroad(res.address[0].roadAddr);
+        setdetailed(res.address[0].detailedAddr);
+      }
     });
   }, []);
 
@@ -75,7 +77,9 @@ function OrderPage(props) {
       setitem(res.data.item);
     });
     getUserInfo().then((res) => {
-      setpoint(res.point);
+      if (res) {
+        setpoint(res.point);
+      }
     });
   }, []);
 

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import { header } from "../../utils/config";
+import React, { useLayoutEffect } from "react";
+import { getUserInfo } from "../../controller/user";
+import { useHistory } from "react-router-dom";
 
 export default function Auth(
   SpecificComponent,
@@ -13,28 +13,34 @@ export default function Auth(
   // adminRoute =true admin만 들어올 수 있음
 
   function CheckAuth(props) {
-    useEffect(() => {
-      axios
-        .get("api/users/auth", header)
-        .then((res) => res.data.user)
-        .then(async (res) => {
-          if (!res) {
-            if (option) {
-              await props.history.push("/signin");
-            }
-          } else {
-            if (!res.admin && adminRoute) {
-              await props.history.push("/");
-            } else {
-              if (option === false) {
-                await props.history.push("/");
-              }
-            }
+    let history = useHistory();
+    let valid = false;
+    getUserInfo().then((res) => {
+      valid = true;
+      if (!res) {
+        if (option) {
+          valid = false;
+          alert("로그인을 해주세요");
+          history.push("/signin");
+        }
+      } else {
+        if (!res.admin && adminRoute) {
+          valid = false;
+          alert("관리자권한이 없습니다");
+          history.push("/");
+        } else {
+          if (option === false) {
+            valid = false;
+            history.push("/");
           }
-        });
+        }
+      }
     });
-
-    return <SpecificComponent />;
+    if (!valid) {
+      return null;
+    } else {
+      return <SpecificComponent />;
+    }
   }
   return CheckAuth;
 }

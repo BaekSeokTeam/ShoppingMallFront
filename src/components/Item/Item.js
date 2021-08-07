@@ -27,7 +27,7 @@ function Item(props) {
       setitem(gettedItem.data.item);
     };
     getItem();
-  }, [parsed]);
+  }, []);
 
   const addCart = () => {
     const data = {
@@ -35,7 +35,11 @@ function Item(props) {
       sizeIdx: selectedSize,
     };
     axios.post("/api/cart/cartadd", data, header).then((res) => {
-      alert("장바구니에 추가되었습니다");
+      if (res.data.message) {
+        alert("로그인을 해주세요");
+      } else {
+        alert("장바구니에 추가되었습니다");
+      }
     });
   };
   const rendering1 = () => {
