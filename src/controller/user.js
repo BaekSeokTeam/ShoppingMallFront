@@ -30,6 +30,7 @@ export const signin = (email, password) => {
   });
 };
 export const getUserInfo = () => {
+  console.log(`Bearer ${token()}`);
   return new Promise((resolve, reject) => {
     axios({
       method: "get",

@@ -48,21 +48,18 @@ export default function App() {
             path="/signin"
             render={() => <Signin login={login} change={changeState} />}
           />
-          <Route path="/signup" component={Auth(Signup, false)} />
+          <Route path="/signup" component={Signup} />
           <Route path="/userinfo" component={Userinfo} />
-          <Route path="/order" component={Auth(OrderPage, true)} />
+          <Route path="/order" component={OrderPage} />
           <Route
             path="/itemlist"
             render={() => <ItemListPage admin={admin} />}
           />
           <Route path="/board" component={BoardPage} />
           <Route path="/item" render={() => <Item admin={admin} />} />
-          <Route path="/itemadd" component={Auth(ItemAdd, true, true)} />
-          <Route path="/itemedit" component={Auth(ItemEdit, true, true)} />
-          <Route
-            path="/usercontrol"
-            component={Auth(UserControl, true, true)}
-          />
+          <Route path="/itemadd" component={ItemAdd} />
+          <Route path="/itemedit" component={ItemEdit} />
+          <Route path="/usercontrol" component={UserControl} />
         </Switch>
       </div>
     </Router>

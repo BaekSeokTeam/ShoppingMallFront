@@ -19,7 +19,6 @@ function Signin(props) {
       .then((res) => {
         if (res.success) {
           var cookies = new Cookies();
-
           cookies.set("auth", res.token);
           props.change();
           props.history.push("/");
