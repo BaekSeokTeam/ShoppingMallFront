@@ -49,7 +49,7 @@ export default function App() {
             render={() => <Signin login={login} change={changeState} />}
           />
           <Route path="/signup" component={Auth(Signup, false)} />
-          <Route path="/userinfo" component={Auth(Userinfo, true)} />
+          <Route path="/userinfo" component={Userinfo} />
           <Route path="/order" component={Auth(OrderPage, true)} />
           <Route
             path="/itemlist"
